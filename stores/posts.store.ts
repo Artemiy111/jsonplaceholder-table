@@ -53,9 +53,13 @@ export const usePostsStore = defineStore('posts', () => {
     return currentId.value + 1
   }
 
-  function addPost(post: Omit<Post, 'id'>) {
+  async function addPost(post: Omit<Post, 'id'>) {
     const newPost = { ...post, id: getNextId() }
     rawPosts.value.push(newPost)
+    await fetch(API_ENDPOINT, {
+      method: 'post',
+      body: JSON.stringify(newPost)
+    })
   }
 
   return {
