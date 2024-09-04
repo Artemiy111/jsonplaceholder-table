@@ -36,7 +36,6 @@ export const usePostsStore = defineStore('posts', () => {
   )
 
   function toggleSortingMode() {
-    console.log('toggle')
     if (sortingMode.value === 'asc') sortingMode.value = 'desc'
     else sortingMode.value = 'asc'
   }
@@ -45,7 +44,6 @@ export const usePostsStore = defineStore('posts', () => {
     isLoading.value = true
     const data = await fetch(API_ENDPOINT)
     const res = await data.json() as Post[] // need validation and error handling
-    console.log(res)
     rawPosts.value = res
     isLoading.value = false
   }
@@ -57,7 +55,6 @@ export const usePostsStore = defineStore('posts', () => {
 
   function addPost(post: Omit<Post, 'id'>) {
     const newPost = { ...post, id: getNextId() }
-    console.log(newPost)
     rawPosts.value.push(newPost)
   }
 
