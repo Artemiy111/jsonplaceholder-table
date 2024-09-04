@@ -62,9 +62,10 @@ store.loadPosts()
       </button>
     </div>
 
-    <div class="flex gap-2 mt-6">
+    <div class="flex gap-2 mt-6 h-6">
       <span
         v-for="page in store.MAX_PAGES"
+        :key="page"
         @click="store.loadPage(page)"
         :class="[
           'cursor-pointer',
@@ -90,13 +91,8 @@ store.loadPosts()
         </tr>
       </thead>
       <tbody class="grid grid-cols-subgrid col-span-4">
-        <Throbber
-          v-if="store.isLoading"
-          class="mt-2 animate-spin w-16 h-16 [animation-duration:3s]"
-        />
-
         <tr
-          v-else
+          v-if="!store.isLoading"
           class="grid grid-cols-subgrid col-span-4 border-b last:border-b-0 py-2"
           v-for="post in store.posts"
           :key="post.id"
@@ -108,5 +104,6 @@ store.loadPosts()
         </tr>
       </tbody>
     </table>
+    <Throbber v-if="store.isLoading" class="mt-2 animate-spin w-16 h-16 [animation-duration:3s]" />
   </main>
 </template>
